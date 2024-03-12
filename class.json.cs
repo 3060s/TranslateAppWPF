@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Windows;
 using System.Xml;
 using Newtonsoft.Json;
 
@@ -22,6 +23,14 @@ public class Json
     public static void SaveDictionaryToFile(string filePath, Dictionary<string, string> dictionary)
     {
         string json = JsonConvert.SerializeObject(dictionary, Newtonsoft.Json.Formatting.Indented);
-        File.WriteAllText(filePath, json);
+        try
+        {
+            File.WriteAllText(filePath, json);
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            // Handle the exception
+            MessageBox.Show($"Error writing to file: {ex.Message}");
+        }
     }
 }

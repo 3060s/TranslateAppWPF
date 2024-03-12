@@ -16,17 +16,14 @@ namespace TranslateAppWPF
 {
     public partial class MainWindow : Window
     {
-        private readonly string directoryPath, fileName, filePath;
+        private readonly string directoryPath = @"D:\vs2022\TranslateAppWPF\dictionaries";
+        private string filePath;
         private Dictionary<string, string> dictionary;
 
         public MainWindow()
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
-
-            directoryPath = @"D:\vs2022\TranslateAppWPF";
-            fileName = "dictionary.json";
-            filePath = System.IO.Path.Combine(directoryPath, fileName);
 
             dictionary = Json.LoadDictionaryFromFile(filePath);
         }
@@ -46,8 +43,9 @@ namespace TranslateAppWPF
         {
             string key = KeyTextBox.Text;
             string value = ValueTextBox.Text;
+            string fileName = NameTextBox.Text;
 
-            if (!string.IsNullOrEmpty(key) && !string.IsNullOrEmpty(value))
+            if (!string.IsNullOrEmpty(key) && !string.IsNullOrEmpty(value) && !string.IsNullOrEmpty(fileName))
             {
                 if (dictionary == null)
                 {
@@ -55,11 +53,19 @@ namespace TranslateAppWPF
                 }
 
                 dictionary[key] = value;
+
+                filePath = System.IO.Path.Combine(directoryPath, fileName + ".json");
+
+                if (!Directory.Exists(directoryPath))
+                {
+                    Directory.CreateDirectory(directoryPath);
+                }
+
                 SaveDictionaryToFile();
             }
             else
             {
-                MessageBox.Show("Please enter both key and value.");
+                MessageBox.Show("Please enter key, value, and file name!");
             }
         }
 
