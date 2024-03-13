@@ -6,54 +6,49 @@
         xmlns:local="clr-namespace:TranslateAppWPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="1080" Width="1920"
-        Background="LightSkyBlue">
+        Background="#804BFA">
     <Window.Resources>
         <Style TargetType="TextBox" x:Key="textbox">
             <Setter Property="BorderBrush" Value="Black"/>
             <Setter Property="BorderThickness" Value="2"/>
         </Style>
     </Window.Resources>
-    <Grid>
-        <TextBox x:Name="KeyTextBox"
-                 FontSize="14"
-                 Height="30"
-                 Width="150"
-                 Margin="20,0,1000,0"
-                 Style="{StaticResource textbox}"/>
+    <Grid ShowGridLines="True" Margin="30,250,1614,0">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
-        <TextBox x:Name="ValueTextBox"
-                 FontSize="14"
-                 Height="30"
-                 Width="150"
-                 Margin="1000,0,20,0"
-                 Style="{StaticResource textbox}"/>
-
-        <TextBox x:Name="NameTextBox"
-                 FontSize="14"
-                 Height="30"
-                 Width="150"
-                 Margin="500,0,20,0"
-                 Style="{StaticResource textbox}"/> 
-
-        <TextBox x:Name="RemoveTextBox"
-                 FontSize="14"
-                 Height="30"
-                 Width="150"
-                 Margin="0,0,0,0"
-                 Style="{StaticResource textbox}"/> 
-
-        <Button Name="Add"
+        <Button Grid.Row="0"
+                Name="Study"
                 Click="AddEntryButton_Click"
-                Content="Add entry!"
+                Content="Ucz się"
                 Height="30"
-                Width="150"
-                Margin="0, 0, 0, 300"/>
+                Width="150"/>
 
-        <Button Name="Remove"
+        
+        <Button Grid.Row="1"
+                Name="Edit"
+                Click="RemoveEntryButton_Click"
+                Content="Edycja zestawu"
+                Height="30"
+                Width="150"/>
+
+
+        <Button Grid.Row="2"
+                Name="New"
                 Click="RemoveEntryButton_Click"
                 Content="Remove entry!"
                 Height="30"
-                Width="150"
-                Margin="0, 300, 0, 0"/>       
+                Width="150"/>
+
+        <Button Grid.Row="3"
+                Name="Delete"
+                Click="RemoveEntryButton_Click"
+                Content="Usuń zestaw"
+                Height="30"
+                Width="150"/>   
     </Grid>
 </Window>
