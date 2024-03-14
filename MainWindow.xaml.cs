@@ -11,21 +11,17 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.Generic;
 using System.IO;
+using TranslateAppWPF.windows;
 
 namespace TranslateAppWPF
 {
     public partial class MainWindow : Window
     {
-        private readonly string directoryPath = @"D:\vs2022\TranslateAppWPF\dictionaries";
-        private string filePath;
-        private Dictionary<string, string> dictionary;
-
         public MainWindow()
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
 
-            dictionary = Json.LoadDictionaryFromFile(filePath);
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -33,83 +29,32 @@ namespace TranslateAppWPF
             WindowState = WindowState.Maximized;
         }
 
-        private void SaveDictionaryToFile()
+        private void Study_Click(object sender, RoutedEventArgs e)
         {
-            Json.SaveDictionaryToFile(filePath, dictionary);
-            MessageBox.Show($"Dictionary saved to {filePath}");
+            Study studyWindow = new Study();
+            studyWindow.Show();
+            this.Close();
         }
 
-        private void AddEntryButton_Click(object sender, RoutedEventArgs e)
+        private void Edit_Click(object sender, RoutedEventArgs e)
         {
-            string key = KeyTextBox.Text;
-            string value = ValueTextBox.Text;
-            string fileName = NameTextBox.Text;
-
-            if (!string.IsNullOrEmpty(key) && !string.IsNullOrEmpty(value) && !string.IsNullOrEmpty(fileName))
-            {
-                if (dictionary == null)
-                {
-                    dictionary = new Dictionary<string, string>();
-                }
-
-                dictionary[key] = value;
-
-                filePath = System.IO.Path.Combine(directoryPath, fileName + ".json");
-
-                if (!Directory.Exists(directoryPath))
-                {
-                    Directory.CreateDirectory(directoryPath);
-                }
-
-                SaveDictionaryToFile();
-            }
-            else
-            {
-                MessageBox.Show("Please enter key, value, and file name!");
-            }
+            Edit editWindow = new Edit();
+            editWindow.Show();
+            this.Close();
         }
 
-        private void RemoveEntryButton_Click(object sender, RoutedEventArgs e)
+        private void New_Click(object sender, RoutedEventArgs e)
         {
-            string searchText = RemoveTextBox.Text;
-
-            if (dictionary == null || dictionary.Count == 0)
-            {
-                MessageBox.Show("Dictionary is empty.");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(searchText))
-            {
-                MessageBox.Show("Please enter search text.");
-                return;
-            }
-
-            KeyValuePair<string, string>? entryToRemove = null;
-            foreach (var entry in dictionary)
-            {
-                if (entry.Key == searchText || entry.Value == searchText)
-                {
-                    entryToRemove = entry;
-                    break;
-                }
-            }
-
-            if (entryToRemove != null)
-            {
-                dictionary.Remove(entryToRemove.Value.Key);
-                SaveDictionaryToFile();
-                MessageBox.Show("Entry removed successfully.");
-            }
-            else
-            {
-                MessageBox.Show("Entry not found.");
-            }
+            New newWindow = new New();
+            newWindow.Show();
+            this.Close();
         }
 
-        private void Window_Closed(object sender, EventArgs e)
+        private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            SaveDictionaryToFile();
+            Delete deleteWindow = new Delete();
+            deleteWindow.Show();
+            this.Close();
         }
     }
 }

@@ -8,47 +8,109 @@
         Title="MainWindow" Height="1080" Width="1920"
         Background="#804BFA">
     <Window.Resources>
-        <Style TargetType="TextBox" x:Key="textbox">
-            <Setter Property="BorderBrush" Value="Black"/>
-            <Setter Property="BorderThickness" Value="2"/>
+        <Style TargetType="Button" x:Key="button">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Height" Value="75"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontFamily" Value="Rubik"/>
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="BorderThickness" Value="3"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="25">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Setter Property="Foreground" Value="#804BFA"/>
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation 
+                                                Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)"
+                                                To="#804BFA" Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation 
+                                                Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)"
+                                                To="{x:Null}" Duration="0:0:0.4"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </Window.Resources>
-    <Grid ShowGridLines="True" Margin="30,250,1614,0">
+    <Grid ShowGridLines="True">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" MinHeight="209"/>
+            <!-- Row for the TextBox -->
             <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <!-- Row for the Buttons -->
         </Grid.RowDefinitions>
 
-        <Button Grid.Row="0"
+        <TextBlock Grid.Row="0"
+                   Text="TranslateWPF"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontFamily="Rubik"
+                   FontWeight="Bold"
+                   FontSize="100"
+                   Margin="0,0,0,0"/>
+
+        <!-- Buttons -->
+        <Grid Grid.Row="1" Margin="50,50,1594,0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+
+            <Button Grid.Row="0"
                 Name="Study"
-                Click="AddEntryButton_Click"
+                Click="Study_Click"
                 Content="Ucz się"
-                Height="30"
-                Width="150"/>
+                Style="{StaticResource button}"
+                Foreground="White"/>
 
-        
-        <Button Grid.Row="1"
+
+            <Button Grid.Row="1"
                 Name="Edit"
-                Click="RemoveEntryButton_Click"
+                Click="Edit_Click"
                 Content="Edycja zestawu"
-                Height="30"
-                Width="150"/>
+                Style="{StaticResource button}"
+                Foreground="White"/>
 
 
-        <Button Grid.Row="2"
+            <Button Grid.Row="2"
                 Name="New"
-                Click="RemoveEntryButton_Click"
-                Content="Remove entry!"
-                Height="30"
-                Width="150"/>
+                Click="New_Click"
+                Content="Nowy zestaw"
+                Style="{StaticResource button}"
+                Foreground="White"/>
 
-        <Button Grid.Row="3"
+            <Button Grid.Row="3"
                 Name="Delete"
-                Click="RemoveEntryButton_Click"
+                Click="Delete_Click"
                 Content="Usuń zestaw"
-                Height="30"
-                Width="150"/>   
+                Style="{StaticResource button}"
+                Foreground="White"/>
+        </Grid>
     </Grid>
 </Window>
