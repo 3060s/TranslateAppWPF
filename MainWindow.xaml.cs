@@ -11,7 +11,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.Generic;
 using System.IO;
-using TranslateAppWPF.windows;
+using TranslateAppWPF;
 
 namespace TranslateAppWPF
 {
@@ -31,30 +31,22 @@ namespace TranslateAppWPF
 
         private void Study_Click(object sender, RoutedEventArgs e)
         {
-            Study studyWindow = new Study();
-            studyWindow.Show();
-            this.Close();
+
         }
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-            Edit editWindow = new Edit();
-            editWindow.Show();
-            this.Close();
+
         }
 
         private void New_Click(object sender, RoutedEventArgs e)
         {
-            New newWindow = new New();
-            newWindow.Show();
-            this.Close();
+
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            Delete deleteWindow = new Delete();
-            deleteWindow.Show();
-            this.Close();
+
         }
     }
 }

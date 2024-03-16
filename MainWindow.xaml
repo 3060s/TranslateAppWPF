@@ -16,6 +16,7 @@
             <Setter Property="Background" Value="Black"/>
             <Setter Property="BorderThickness" Value="3"/>
             <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="Margin" Value="0,0,75,0"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -55,62 +56,69 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid ShowGridLines="True">
+
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" MinHeight="209"/>
-            <!-- Row for the TextBox -->
-            <RowDefinition/>
-            <!-- Row for the Buttons -->
+            <RowDefinition Height="Auto"/>
+            <!-- Row for the header -->
+            <RowDefinition Height="Auto"/>
+            <!-- Row for the buttons -->
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0"
-                   Text="TranslateWPF"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   FontFamily="Rubik"
-                   FontWeight="Bold"
-                   FontSize="100"
-                   Margin="0,0,0,0"/>
-
         <!-- Buttons -->
-        <Grid Grid.Row="1" Margin="50,50,1594,0">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+        <Border BorderThickness="0,0,0,4" BorderBrush="Black">
+            <Grid Grid.Row="0"
+                  Margin="500,10,0,15"
+                  Width="1300">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0"
+                        Name="Study"
+                        Click="Study_Click"
+                        Content="Ucz się"
+                        Style="{StaticResource button}"
+                        Foreground="White"/>
+
+                <Button Grid.Column="1"
+                        Name="Edit"
+                        Click="Edit_Click"
+                        Content="Edycja zestawu"
+                        Style="{StaticResource button}"
+                        Foreground="White"/>
+
+                <Button Grid.Column="2"
+                        Name="New"
+                        Click="New_Click"
+                        Content="Nowy zestaw"
+                        Style="{StaticResource button}"
+                        Foreground="White"/>
+
+                <Button Grid.Column="3"
+                        Name="Delete"
+                        Click="Delete_Click"
+                        Content="Usuń zestaw"
+                        Style="{StaticResource button}"
+                        Foreground="White"/>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="0"
+                  Margin="0,10,1420,0">
 
 
-            <Button Grid.Row="0"
-                Name="Study"
-                Click="Study_Click"
-                Content="Ucz się"
-                Style="{StaticResource button}"
-                Foreground="White"/>
+            <TextBlock Grid.Row="1"
+               Text="TranslateWPF"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               FontFamily="Rubik"
+               FontWeight="Bold"
+               FontSize="63"/>
 
-
-            <Button Grid.Row="1"
-                Name="Edit"
-                Click="Edit_Click"
-                Content="Edycja zestawu"
-                Style="{StaticResource button}"
-                Foreground="White"/>
-
-
-            <Button Grid.Row="2"
-                Name="New"
-                Click="New_Click"
-                Content="Nowy zestaw"
-                Style="{StaticResource button}"
-                Foreground="White"/>
-
-            <Button Grid.Row="3"
-                Name="Delete"
-                Click="Delete_Click"
-                Content="Usuń zestaw"
-                Style="{StaticResource button}"
-                Foreground="White"/>
         </Grid>
     </Grid>
 </Window>
