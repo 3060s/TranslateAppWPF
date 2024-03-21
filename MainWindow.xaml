@@ -17,43 +17,6 @@
             <Setter Property="BorderThickness" Value="3"/>
             <Setter Property="BorderBrush" Value="White"/>
             <Setter Property="Margin" Value="0,0,75,0"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="25">
-                            <ContentPresenter HorizontalAlignment="Center"
-                                              VerticalAlignment="Center"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Cursor" Value="Hand"/>
-                                <Setter Property="Foreground" Value="#804BFA"/>
-                                <Trigger.EnterActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <ColorAnimation 
-                                                Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)"
-                                                To="#804BFA" Duration="0:0:0.2"/>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.EnterActions>
-                                <Trigger.ExitActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <ColorAnimation 
-                                                Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)"
-                                                To="{x:Null}" Duration="0:0:0.4"/>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.ExitActions>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
         </Style>
     </Window.Resources>
 
