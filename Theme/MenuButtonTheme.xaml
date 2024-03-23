@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style BasedOn="{StaticResource {x:Type ToggleButton}}"
            TargetType="{x:Type RadioButton}"
-           x:key="MenuButtonTheme">
+           x:Key="MenuButtonTheme">
         <Style.Setters>
             <Setter Property="Template">
                 <Setter.Value>
@@ -16,7 +16,8 @@
                 </Setter.Value>
             </Setter>
 
-            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="White"/>
             <Setter Property="BorderThickness" Value="0"/>
         </Style.Setters>
 

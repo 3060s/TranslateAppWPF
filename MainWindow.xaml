@@ -13,7 +13,7 @@
             <Setter Property="Height" Value="75"/>
             <Setter Property="FontSize" Value="24"/>
             <Setter Property="FontFamily" Value="Rubik"/>
-            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Background" Value="White"/>
             <Setter Property="BorderThickness" Value="3"/>
             <Setter Property="BorderBrush" Value="White"/>
             <Setter Property="Margin" Value="0,0,75,0"/>
@@ -29,53 +29,52 @@
         </Grid.RowDefinitions>
 
         <!-- Buttons -->
-        <Border BorderThickness="0,0,0,4" BorderBrush="Black">
+        <Border BorderThickness="0,0,0,4"
+                BorderBrush="Black"
+                Background="Black">
             <Grid Grid.Row="0"
                   Margin="500,10,0,15"
                   Width="1300">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0"
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <RadioButton
                         Name="Study"
-                        Click="Study_Click"
                         Content="Ucz się"
-                        Style="{StaticResource button}"
+                        Style="{StaticResource MenuButtonTheme}"
                         Foreground="White"/>
 
-                <Button Grid.Column="1"
+                    <RadioButton
                         Name="Edit"
-                        Click="Edit_Click"
                         Content="Edycja zestawu"
-                        Style="{StaticResource button}"
+                        Style="{StaticResource MenuButtonTheme}"
                         Foreground="White"/>
 
-                <Button Grid.Column="2"
+                    <RadioButton
                         Name="New"
-                        Click="New_Click"
                         Content="Nowy zestaw"
-                        Style="{StaticResource button}"
+                        Style="{StaticResource MenuButtonTheme}"
                         Foreground="White"/>
 
-                <Button Grid.Column="3"
+                    <RadioButton
                         Name="Delete"
-                        Click="Delete_Click"
                         Content="Usuń zestaw"
-                        Style="{StaticResource button}"
+                        Style="{StaticResource MenuButtonTheme}"
                         Foreground="White"/>
+                </StackPanel>
             </Grid>
         </Border>
 
         <Grid Grid.Row="0"
-                  Margin="0,10,1420,0">
+              Margin="0,10,1420,0">
 
 
             <TextBlock Grid.Row="1"
                Text="TranslateWPF"
+               Foreground="White"
                HorizontalAlignment="Center"
                VerticalAlignment="Center"
                FontFamily="Rubik"
