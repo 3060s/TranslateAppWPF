@@ -44,26 +44,22 @@
                     <RadioButton
                         Name="Study"
                         Content="Ucz się"
-                        Style="{StaticResource MenuButtonTheme}"
-                        Foreground="White"/>
+                        Style="{StaticResource MenuButtonTheme}"/>
 
                     <RadioButton
                         Name="Edit"
                         Content="Edycja zestawu"
-                        Style="{StaticResource MenuButtonTheme}"
-                        Foreground="White"/>
+                        Style="{StaticResource MenuButtonTheme}"/>
 
                     <RadioButton
                         Name="New"
                         Content="Nowy zestaw"
-                        Style="{StaticResource MenuButtonTheme}"
-                        Foreground="White"/>
+                        Style="{StaticResource MenuButtonTheme}"/>
 
                     <RadioButton
                         Name="Delete"
                         Content="Usuń zestaw"
-                        Style="{StaticResource MenuButtonTheme}"
-                        Foreground="White"/>
+                        Style="{StaticResource MenuButtonTheme}"/>
                 </StackPanel>
             </Grid>
         </Border>
