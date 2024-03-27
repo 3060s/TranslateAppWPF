@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TranslateAppWPF"
+        xmlns:local="clr-namespace:TranslateAppWPF.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="1080" Width="1920"
         Background="#804BFA">
@@ -26,57 +26,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Border Background="Black">
-            <Grid Grid.Row="0"
-                  Margin="500,10,0,15"
-                  Width="1300">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-
-
-                <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
-                    <RadioButton
-                        Name="Study"
-                        Content="Ucz się"
-                        Style="{StaticResource MenuButtonTheme}"/>
-
-                    <RadioButton
-                        Name="Edit"
-                        Content="Edycja zestawu"
-                        Style="{StaticResource MenuButtonTheme}"/>
-
-                    <RadioButton
-                        Name="New"
-                        Content="Nowy zestaw"
-                        Style="{StaticResource MenuButtonTheme}"/>
-
-                    <RadioButton
-                        Name="Delete"
-                        Content="Usuń zestaw"
-                        Style="{StaticResource MenuButtonTheme}"/>
-                </StackPanel>
-
-
-            </Grid>
-        </Border>
-
-        <Grid Grid.Row="0"
-              Margin="0,10,1420,0">
-
-
-            <TextBlock Grid.Row="0"
-               Text="TranslateWPF"
-               Foreground="White"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"
-               FontFamily="Rubik"
-               FontWeight="Bold"
-               FontSize="63"/>
-
-
-        </Grid>
-
+        <local:HeaderUserControl Grid.Row="0"/>
 
 
         <ContentControl Grid.Row="1"
