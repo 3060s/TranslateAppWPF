@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Controls;
 
-namespace TranslateAppWPF.Views
+namespace TranslateAppWPF.MVVM.View
 {
     /// <summary>
     /// Logika interakcji dla klasy HeaderUserControl.xaml

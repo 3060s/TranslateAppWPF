@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TranslateAppWPF.ViewModels
+namespace TranslateAppWPF.MVVM.ViewModel
 {
     class MainViewModel : ObservableObject
     {
