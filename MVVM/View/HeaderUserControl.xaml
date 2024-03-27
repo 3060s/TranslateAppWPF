@@ -20,7 +20,6 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Orientation="Horizontal" Margin="40,10,10,10">
-                <!-- TextBlock -->
                 <TextBlock Text="TranslateWPF"
                        Foreground="White"
                        FontFamily="Rubik"
@@ -28,11 +27,37 @@
                        FontSize="63"
                        VerticalAlignment="Center"/>
 
-                <!-- Apply the custom style to the menu buttons -->
-                <RadioButton Name="Study" Content="Ucz się" Style="{StaticResource MenuButtonTheme}" Margin="200,0,80,0"/>
-                <RadioButton Name="Edit" Content="Edycja zestawu" Style="{StaticResource MenuButtonTheme}" Margin="0,0,80,0"/>
-                <RadioButton Name="New" Content="Nowy zestaw" Style="{StaticResource MenuButtonTheme}" Margin="0,0,80,0"/>
-                <RadioButton Name="Delete" Content="Usuń zestaw" Style="{StaticResource MenuButtonTheme}" Margin="0,0,80,0"/>
+
+                <RadioButton Name="Home"
+                             Content="Strona główna"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Margin="100,0,80,0"
+                             IsChecked="True"
+                             Command="{Binding HomeViewCommand}"/>  
+
+                <RadioButton Name="Study"
+                             Content="Ucz się"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Margin="0,0,80,0"
+                             Command="{Binding StudyViewCommand}"/>
+                
+                <RadioButton Name="Edit"
+                             Content="Edycja zestawu"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Margin="0,0,80,0"
+                             Command="{Binding EditViewCommand}"/>
+                
+                <RadioButton Name="New"
+                             Content="Nowy zestaw"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Margin="0,0,80,0"
+                             Command="{Binding NewViewCommand}"/>
+                
+                <RadioButton Name="Delete"
+                             Content="Usuń zestaw"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Margin="0,0,80,0"
+                             Command="{Binding DeleteViewCommand}"/>
             </StackPanel>
         </Grid>
     </Border>

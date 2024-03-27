@@ -4,11 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TranslateAppWPF.MVVM.View"
+        xmlns:viewModel="clr-namespace:TranslateAppWPF.MVVM.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="1080" Width="1920"
         Background="#804BFA">
 
-    <Grid>
+    <Window.DataContext>
+        <viewModel:MainViewModel/>
+    </Window.DataContext>
+
+        <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -18,7 +23,8 @@
 
 
         <ContentControl Grid.Row="1"
-                        Margin="20"/>
+                        Margin="20"
+                        Content="{Binding CurrentView}"/>
         
     </Grid>
 </Window>
