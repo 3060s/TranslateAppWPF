@@ -4,9 +4,64 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TranslateAppWPF.MVVM.View"
+             xmlns:local2="clr-namespace:TranslateAppWPF.MVVM.Theme"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="D:\vs2022\TranslateAppWPF\Theme\NewButtonTheme.xaml"/>
+                <ResourceDictionary Source="D:\vs2022\TranslateAppWPF\Theme\TextBox.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            
+            <Style TargetType="TextBox" x:Key="textbox">
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="2"/>
+            </Style>
+
+            <Style TargetType="Label" x:Key="label">
+                <Setter Property="FontSize" Value="60"/>
+                <Setter Property="FontFamily" Value="Rubik"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Grid>
-        <Label Content="New view"/>
+        <Label Content="Tworzenie zestawu"
+               Style="{StaticResource label}"/>
+
+        <Grid>
+            <TextBox x:Name="KeyTextBox"
+                     FontSize="14"
+                     Height="30"
+                     Width="150"
+                     Margin="20,0,1000,0"
+                     Style="{StaticResource textbox}"
+                     local2:WatermarkService.Watermark="Podaj słowo"/>
+
+            <TextBox x:Name="ValueTextBox"
+                     FontSize="14"
+                     Height="30"
+                     Width="150"
+                     Margin="1000,0,20,0"
+                     Style="{StaticResource textbox}"
+                     local2:WatermarkService.Watermark="Podaj tłumaczenie"/>
+
+            <TextBox x:Name="NameTextBox"
+                     FontSize="14"
+                     Margin="0,0,0,400"
+                     Style="{StaticResource TextBox}"
+                     HorizontalAlignment="Center"
+                     local2:WatermarkService.Watermark="Podaj nazwę zestawu"/>
+
+
+            <Button Name="Add"
+                    Click="AddEntryButton_Click"
+                    Content="Add entry!"
+                    Margin="0, 0, 0, 50"
+                    Style="{StaticResource NewButton}"/>
+        </Grid>
     </Grid>
-</UserControl>
+</UserControl>   

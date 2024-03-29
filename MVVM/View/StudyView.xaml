@@ -6,7 +6,16 @@
              xmlns:local="clr-namespace:TranslateAppWPF.MVVM.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style TargetType="TextBox" x:Key="textbox">
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="2"/>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Grid>
         <Label Content="Study view"/>
     </Grid>
-</UserControl>
+</UserControl>   
