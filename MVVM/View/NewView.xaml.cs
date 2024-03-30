@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using TranslateAppWPF.MVVM.Theme;
 
 namespace TranslateAppWPF.MVVM.View
 {
@@ -58,24 +60,41 @@ namespace TranslateAppWPF.MVVM.View
         private void SaveDictionaryToFile()
         {
             Json.SaveDictionaryToFile(filePath, dictionary);
-            MessageBox.Show($"Dictionary saved to {filePath}");
         }
 
         private void AddEntryButton_Click(object sender, RoutedEventArgs e)
         {
             string key = KeyTextBox.Text;
             string value = ValueTextBox.Text;
-            string fileName = NameTextBox.Text;
 
-            if (!string.IsNullOrEmpty(key) && !string.IsNullOrEmpty(value) && !string.IsNullOrEmpty(fileName))
+            if (!string.IsNullOrEmpty(key) && !string.IsNullOrEmpty(value))
             {
                 if (dictionary == null)
                 {
-                    dictionary = new Dictionary<string, string>();
+                    MessageBox.Show("Taki zestaw nie istnieje!");
+                    return;
                 }
 
                 dictionary[key] = value;
 
+                SaveDictionaryToFile();
+
+                KeyTextBox.Text = null;
+                ValueTextBox.Text = null;
+            }
+            else
+            {
+                MessageBox.Show("Proszę wprowadzić słowo i jego tłumaczenie!");
+            }
+        }
+
+
+        private void NewSetButton_Click(object sender, RoutedEventArgs e)
+        {
+            string fileName = NameTextBox.Text;
+
+            if (!string.IsNullOrEmpty(fileName))
+            {
                 filePath = Path.Combine(directoryPath, fileName + ".json");
 
                 if (!Directory.Exists(directoryPath))
@@ -83,18 +102,21 @@ namespace TranslateAppWPF.MVVM.View
                     Directory.CreateDirectory(directoryPath);
                 }
 
+                dictionary = new Dictionary<string, string>();
+
                 SaveDictionaryToFile();
+
+                Add.Visibility = Visibility.Visible;
+                KeyTextBox.Visibility = Visibility.Visible;
+                ValueTextBox.Visibility = Visibility.Visible;
+                New.Visibility = Visibility.Collapsed;
+                NameTextBox.Visibility = Visibility.Collapsed;
+                Label1.Content = "Dodawanie wpisów";
             }
             else
             {
-                MessageBox.Show("Please enter key, value, and file name!");
+                MessageBox.Show("Proszę wprowadzić nazwę zestawu!");
             }
-        }
-
-
-        private void NewSetButton_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void Window_Closed(object sender, EventArgs e)

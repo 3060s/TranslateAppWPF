@@ -17,7 +17,8 @@
             <Style TargetType="TextBox" x:Key="textbox">
                 <Setter Property="BorderBrush" Value="Black"/>
                 <Setter Property="BorderThickness" Value="2"/>
-                <Setter Property="FontSize" Value="10"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="Rubik"/>
                 <Setter Property="Height" Value="30"/>
                 <Setter Property="Width" Value="200"/>
             </Style>
@@ -32,21 +33,20 @@
     </UserControl.Resources>
 
     <Grid>
-        <Label Content="Tworzenie zestawu"
+        <Label x:Name="Label1"
+               Content="Tworzenie zestawu"
                Style="{StaticResource label}"/>
 
         <Grid>
             <TextBox x:Name="KeyTextBox"
-                     Margin="20,400,1000,0"
+                     Margin="20,0,1000,0"
                      LostFocus="TextBox_LostFocus"
-                     Style="{StaticResource textbox}"
-                     local2:WatermarkService.Watermark="Podaj słowo"/>
+                     Style="{StaticResource textbox}"/>
 
             <TextBox x:Name="ValueTextBox"
-                     Margin="1000,400,20,0"
+                     Margin="1000,0,20,0"
                      Style="{StaticResource textbox}"
-                     LostFocus="TextBox_LostFocus"
-                     local2:WatermarkService.Watermark="Podaj tłumaczenie"/>
+                     LostFocus="TextBox_LostFocus"/>
 
             <TextBox x:Name="NameTextBox"
                      FontSize="14"
@@ -60,7 +60,7 @@
             <Button Name="Add"
                     Click="AddEntryButton_Click"
                     Content="Dodaj wpis"
-                    Margin="0, 450, 0, 50"
+                    Margin="0, 50, 0, 50"
                     Style="{StaticResource NewButton}"/>
 
             <Button Name="New"
@@ -68,6 +68,12 @@
                     Content="Stwórz zestaw"
                     Margin="0, 0, 0, 50"
                     Style="{StaticResource NewButton}"/>    
+            
+            
+            <!-- ZROBIC TUTAJ OCR -->
+            <!-- ZROBIC TUTAJ OCR -->
+            <!-- ZROBIC TUTAJ OCR -->
+            <!-- ZROBIC TUTAJ OCR -->
         </Grid>
     </Grid>
 </UserControl>   

@@ -18,6 +18,7 @@
         </Setter>
 
         <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontFamily" Value="Rubik"/>
         <Setter Property="BorderBrush" Value="White"/>
         <Setter Property="BorderThickness" Value="3"/>
         <Setter Property="Background" Value="Black"/>

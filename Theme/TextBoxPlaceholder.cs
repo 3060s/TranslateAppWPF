@@ -73,18 +73,17 @@ namespace TranslateAppWPF.MVVM.Theme
                 textBox.FontStyle = FontStyles.Italic;
                 textBox.Foreground = Brushes.Gray;
 
-                // Set different font sizes based on TextBox name
                 switch (textBox.Name)
                 {
                     case "NameTextBox":
-                        textBox.FontSize = 28; // Font size for NameTextBox
+                        textBox.FontSize = 28;
                         break;
                     case "KeyTextBox":
                     case "ValueTextBox":
-                        textBox.FontSize = 18; // Font size for KeyTextBox and ValueTextBox
+                        textBox.FontSize = 18;
                         break;
                     default:
-                        textBox.FontSize = 12; // Default font size
+                        textBox.FontSize = 12;
                         break;
                 }
             }
