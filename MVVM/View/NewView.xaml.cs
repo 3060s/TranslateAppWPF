@@ -97,6 +97,12 @@ namespace TranslateAppWPF.MVVM.View
             {
                 filePath = Path.Combine(directoryPath, fileName + ".json");
 
+                if (File.Exists(filePath))
+                {
+                    MessageBox.Show("Taki zestaw już istnieje!");
+                    return;
+                }
+
                 if (!Directory.Exists(directoryPath))
                 {
                     Directory.CreateDirectory(directoryPath);

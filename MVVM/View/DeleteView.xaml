@@ -4,9 +4,29 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TranslateAppWPF.MVVM.View"
+             xmlns:local2="clr-namespace:TranslateAppWPF.MVVM.Theme"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="D:\vs2022\TranslateAppWPF\Theme\NewButtonTheme.xaml"/>
+                <ResourceDictionary Source="D:\vs2022\TranslateAppWPF\Theme\DropdownMenuTheme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
     <Grid>
-        <Label Content="Delete view"/>
+        <StackPanel Margin="300,100,300,10">
+            <ComboBox x:Name="jsonFilesComboBox"
+                      Width="200"
+                      SelectionChanged="JsonFilesComboBox_SelectionChanged"
+                      Style="{StaticResource DropdownMenuTheme}"/>
+            
+            <Button Content="Usuń zestaw"
+                    Click="DeleteSelectedJsonFile_Click"
+                    Margin="0, 100, 0, 0"
+                    Style="{StaticResource NewButton}"/>
+        </StackPanel>
     </Grid>
 </UserControl>
