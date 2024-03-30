@@ -30,6 +30,11 @@ namespace TranslateAppWPF.MVVM.View
             };
 
             dictionary = Json.LoadDictionaryFromFile(filePath);
+
+
+            Add.Visibility = Visibility.Collapsed;
+            KeyTextBox.Visibility = Visibility.Collapsed;
+            ValueTextBox.Visibility = Visibility.Collapsed;
         }
 
         private void NewView_Loaded(object sender, RoutedEventArgs e)
@@ -84,6 +89,12 @@ namespace TranslateAppWPF.MVVM.View
             {
                 MessageBox.Show("Please enter key, value, and file name!");
             }
+        }
+
+
+        private void NewSetButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private void Window_Closed(object sender, EventArgs e)

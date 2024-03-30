@@ -59,9 +59,15 @@
 
             <Button Name="Add"
                     Click="AddEntryButton_Click"
-                    Content="Add entry!"
+                    Content="Dodaj wpis"
                     Margin="0, 450, 0, 50"
                     Style="{StaticResource NewButton}"/>
+
+            <Button Name="New"
+                    Click="NewSetButton_Click"
+                    Content="Stwórz zestaw"
+                    Margin="0, 0, 0, 50"
+                    Style="{StaticResource NewButton}"/>    
         </Grid>
     </Grid>
 </UserControl>   
