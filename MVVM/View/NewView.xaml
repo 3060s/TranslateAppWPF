@@ -17,6 +17,9 @@
             <Style TargetType="TextBox" x:Key="textbox">
                 <Setter Property="BorderBrush" Value="Black"/>
                 <Setter Property="BorderThickness" Value="2"/>
+                <Setter Property="FontSize" Value="10"/>
+                <Setter Property="Height" Value="30"/>
+                <Setter Property="Width" Value="200"/>
             </Style>
 
             <Style TargetType="Label" x:Key="label">
@@ -34,24 +37,21 @@
 
         <Grid>
             <TextBox x:Name="KeyTextBox"
-                     FontSize="14"
-                     Height="30"
-                     Width="150"
-                     Margin="20,0,1000,0"
+                     Margin="20,400,1000,0"
+                     LostFocus="TextBox_LostFocus"
                      Style="{StaticResource textbox}"
                      local2:WatermarkService.Watermark="Podaj słowo"/>
 
             <TextBox x:Name="ValueTextBox"
-                     FontSize="14"
-                     Height="30"
-                     Width="150"
-                     Margin="1000,0,20,0"
+                     Margin="1000,400,20,0"
                      Style="{StaticResource textbox}"
+                     LostFocus="TextBox_LostFocus"
                      local2:WatermarkService.Watermark="Podaj tłumaczenie"/>
 
             <TextBox x:Name="NameTextBox"
                      FontSize="14"
                      Margin="0,0,0,400"
+                     LostFocus="TextBox_LostFocus"
                      Style="{StaticResource TextBox}"
                      HorizontalAlignment="Center"
                      local2:WatermarkService.Watermark="Podaj nazwę zestawu"/>
@@ -60,7 +60,7 @@
             <Button Name="Add"
                     Click="AddEntryButton_Click"
                     Content="Add entry!"
-                    Margin="0, 0, 0, 50"
+                    Margin="0, 450, 0, 50"
                     Style="{StaticResource NewButton}"/>
         </Grid>
     </Grid>

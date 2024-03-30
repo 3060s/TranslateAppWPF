@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace TranslateAppWPF.MVVM.View
 {
@@ -16,12 +17,37 @@ namespace TranslateAppWPF.MVVM.View
             InitializeComponent();
             Loaded += NewView_Loaded;
 
+            KeyTextBox.LostFocus += TextBox_LostFocus;
+            ValueTextBox.LostFocus += TextBox_LostFocus;
+
+            Loaded += (sender, e) =>
+            {
+                Window window = Window.GetWindow(this);
+                if (window != null)
+                {
+                    window.PreviewMouseDown += Window_PreviewMouseDown;
+                }
+            };
+
             dictionary = Json.LoadDictionaryFromFile(filePath);
         }
 
         private void NewView_Loaded(object sender, RoutedEventArgs e)
         {
-            // Optionally set up any initial UI state
+            
+        }
+
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            Keyboard.ClearFocus();
+        }
+
+        private void Window_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (!(e.Source is TextBox))
+            {
+                Keyboard.ClearFocus();
+            }
         }
 
         private void SaveDictionaryToFile()

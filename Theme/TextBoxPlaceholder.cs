@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace TranslateAppWPF.MVVM.Theme
 {
@@ -26,6 +27,7 @@ namespace TranslateAppWPF.MVVM.Theme
                 {
                     textBox.GotFocus += OnTextBoxGotFocus;
                     textBox.LostFocus += OnTextBoxLostFocus;
+                    textBox.TextChanged += OnTextBoxTextChanged;
                     SetWatermarkText(textBox);
                 }
             }
@@ -44,7 +46,23 @@ namespace TranslateAppWPF.MVVM.Theme
         private static void OnTextBoxLostFocus(object sender, RoutedEventArgs e)
         {
             var textBox = (TextBox)sender;
-            SetWatermarkText(textBox);
+            if (string.IsNullOrEmpty(textBox.Text))
+            {
+                SetWatermarkText(textBox);
+            }
+            else
+            {
+                textBox.Foreground = Brushes.Black;
+            }
+        }
+
+        private static void OnTextBoxTextChanged(object sender, TextChangedEventArgs e)
+        {
+            var textBox = (TextBox)sender;
+            if (textBox.Foreground != Brushes.Black)
+            {
+                textBox.Foreground = Brushes.Black;
+            }
         }
 
         private static void SetWatermarkText(TextBox textBox)
@@ -53,7 +71,22 @@ namespace TranslateAppWPF.MVVM.Theme
             {
                 textBox.Text = GetWatermark(textBox);
                 textBox.FontStyle = FontStyles.Italic;
-                textBox.FontSize = 28;
+                textBox.Foreground = Brushes.Gray;
+
+                // Set different font sizes based on TextBox name
+                switch (textBox.Name)
+                {
+                    case "NameTextBox":
+                        textBox.FontSize = 28; // Font size for NameTextBox
+                        break;
+                    case "KeyTextBox":
+                    case "ValueTextBox":
+                        textBox.FontSize = 18; // Font size for KeyTextBox and ValueTextBox
+                        break;
+                    default:
+                        textBox.FontSize = 12; // Default font size
+                        break;
+                }
             }
         }
     }
