@@ -35,7 +35,7 @@ namespace TranslateAppWPF.MVVM.View
 
         private void JsonFilesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            selectedFileName = jsonFilesComboBox.SelectedItem as string;
+            selectedFileName = (string)jsonFilesComboBox.SelectedItem;
         }
 
         private void DeleteSelectedJsonFile_Click(object sender, RoutedEventArgs e)
