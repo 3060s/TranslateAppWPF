@@ -13,6 +13,28 @@
         <viewModel:MainViewModel/>
     </Window.DataContext>
 
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
+            <local:HomeView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:StudyViewModel}">
+            <local:StudyView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:EditViewModel}">
+            <local:EditView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:NewViewModel}">
+            <local:NewView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:DeleteViewModel}">
+            <local:DeleteView/>
+        </DataTemplate>
+    </Window.Resources>
+
         <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

@@ -10,7 +10,7 @@ namespace TranslateAppWPF.MVVM.View
 {
     public partial class NewView : UserControl
     {
-        private readonly string directoryPath = @"D:\vs2022\TranslateAppWPF\dictionaries";
+        private readonly string directoryPath = "dictionaries";
         private string filePath;
         private Dictionary<string, string> dictionary;
 
@@ -22,15 +22,6 @@ namespace TranslateAppWPF.MVVM.View
             KeyTextBox.LostFocus += TextBox_LostFocus;
             ValueTextBox.LostFocus += TextBox_LostFocus;
 
-            Loaded += (sender, e) =>
-            {
-                Window window = Window.GetWindow(this);
-                if (window != null)
-                {
-                    window.PreviewMouseDown += Window_PreviewMouseDown;
-                }
-            };
-
             dictionary = Json.LoadDictionaryFromFile(filePath);
 
 
@@ -41,20 +32,12 @@ namespace TranslateAppWPF.MVVM.View
 
         private void NewView_Loaded(object sender, RoutedEventArgs e)
         {
-            
+            NameTextBox.Focus();
         }
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             Keyboard.ClearFocus();
-        }
-
-        private void Window_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (!(e.Source is TextBox))
-            {
-                Keyboard.ClearFocus();
-            }
         }
 
         private void SaveDictionaryToFile()

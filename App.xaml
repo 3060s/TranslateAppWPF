@@ -8,28 +8,8 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Theme/MenuButtonTheme.xaml"/>
+                <ResourceDictionary Source="Theme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-
-            <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
-                <view:HomeView/>
-            </DataTemplate>
-
-            <DataTemplate DataType="{x:Type viewModel:StudyViewModel}">
-                <view:StudyView/>
-            </DataTemplate>
-
-            <DataTemplate DataType="{x:Type viewModel:EditViewModel}">
-                <view:EditView/>
-            </DataTemplate>
-
-            <DataTemplate DataType="{x:Type viewModel:NewViewModel}">
-                <view:NewView/>
-            </DataTemplate>
-
-            <DataTemplate DataType="{x:Type viewModel:DeleteViewModel}">
-                <view:DeleteView/>
-            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

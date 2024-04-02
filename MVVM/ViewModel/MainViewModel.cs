@@ -4,20 +4,11 @@ namespace TranslateAppWPF.MVVM.ViewModel
 {
     class MainViewModel : ObservableObject
     {
-
         public RelayCommand HomeViewCommand { get; set; }
         public RelayCommand StudyViewCommand { get; set; }
         public RelayCommand EditViewCommand { get; set; }
         public RelayCommand NewViewCommand { get; set; }
         public RelayCommand DeleteViewCommand { get; set; }
-
-
-        public HomeViewModel HomeVM { get; set; }
-        public StudyViewModel StudyVM { get; set; }
-        public EditViewModel EditVM { get; set; }
-        public NewViewModel NewVM { get; set; }
-        public DeleteViewModel DeleteVM { get; set; }
-
 
         private object _currentview;
 
@@ -32,41 +23,33 @@ namespace TranslateAppWPF.MVVM.ViewModel
 
         }
 
-
         public MainViewModel()
         {
-            HomeVM = new HomeViewModel();
-            StudyVM = new StudyViewModel();
-            EditVM = new EditViewModel();
-            NewVM = new NewViewModel();
-            DeleteVM = new DeleteViewModel();
-
-
-            CurrentView = HomeVM;
+            CurrentView = new HomeViewModel();
 
             HomeViewCommand = new RelayCommand(o =>
             {
-                CurrentView = HomeVM;
+                CurrentView = new HomeViewModel();
             });
 
             StudyViewCommand = new RelayCommand(o =>
             {
-                CurrentView = StudyVM;
+                CurrentView = new StudyViewModel();
             });
 
             EditViewCommand = new RelayCommand(o =>
             {
-                CurrentView = EditVM;
+                CurrentView = new EditViewModel();
             });
 
             NewViewCommand = new RelayCommand(o =>
             {
-                CurrentView = NewVM;
+                CurrentView = new NewViewModel();
             });
 
             DeleteViewCommand = new RelayCommand(o =>
             {
-                CurrentView = DeleteVM;
+                CurrentView = new DeleteViewModel();
             });
         }
     }
