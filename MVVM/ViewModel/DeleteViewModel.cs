@@ -48,10 +48,6 @@ class DeleteViewModel
                 Files.Add(Path.GetFileName(jsonFile));
             }
         }
-        else
-        {
-            MessageBox.Show("Taka ścieżka nie istnieje!");
-        }
     }
 
     private void DeleteFile()

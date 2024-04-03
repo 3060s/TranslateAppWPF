@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TranslateAppWPF.MVVM.View"
+             xmlns:local2="clr-namespace:TranslateAppWPF.MVVM.Theme"
              xmlns:vm="clr-namespace:TranslateAppWPF.MVVM.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -12,16 +13,23 @@
         <vm:StudyViewModel/>
     </UserControl.DataContext>
 
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <Style TargetType="TextBox" x:Key="textbox">
-                <Setter Property="BorderBrush" Value="Black"/>
-                <Setter Property="BorderThickness" Value="2"/>
-            </Style>
-        </ResourceDictionary>
-    </UserControl.Resources>
-
     <Grid>
-        <Label Content="Study view"/>
+        <Grid>
+            <StackPanel Margin="300,100,300,10">
+                <ComboBox Width="200"
+                          SelectedItem="{Binding SelectedFile}"
+                          ItemsSource="{Binding Files}"/>
+
+                <Button Content="Wybierz"
+                        Margin="0, 100, 0, 0"
+                        Command="{Binding LoadTranslationsCommand}"
+                        Style="{StaticResource NewButton}"/>
+
+                <ListBox ItemsSource="{Binding Translations}"
+                         DisplayMemberPath="Key"
+                         Margin="0, 20, 0, 0"
+                         Width="200" Height="200"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>   
