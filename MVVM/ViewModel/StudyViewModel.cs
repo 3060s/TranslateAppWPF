@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Data;
 using Newtonsoft.Json;
 
 
@@ -11,6 +13,19 @@ namespace TranslateAppWPF.MVVM.ViewModel
 {
     class StudyViewModel
     {
+        private ObservableObject _observableObject = new ObservableObject();
+
+        private bool _isSetListVisible;
+
+        public bool IsSetListVisible
+        {
+            get { return _isSetListVisible; }
+            set
+            {
+                _isSetListVisible = value;
+                _observableObject.OnPropertyChanged(nameof(IsSetListVisible));
+            }
+        }
 
         private ObservableCollection<string> _files = new ObservableCollection<string>();
 
@@ -25,16 +40,12 @@ namespace TranslateAppWPF.MVVM.ViewModel
         public string? SelectedFile
         {
             get { return _selectedFile; }
-            set
-            {
-                _selectedFile = value;
-                LoadTranslationsFromSelectedFile();
-            }
+            set { _selectedFile = value; }
         }
 
-        private Dictionary<string, string> _translations = new Dictionary<string, string>();
+        private ObservableCollection<KeyValuePair<string, string>> _translations = [];
 
-        public Dictionary<string, string> Translations
+        public ObservableCollection<KeyValuePair<string, string>> Translations
         {
             get { return _translations; }
             set { _translations = value; }
@@ -48,7 +59,7 @@ namespace TranslateAppWPF.MVVM.ViewModel
             RefreshFiles();
         }
 
-        private void LoadTranslationsFromSelectedFile()
+        public void LoadTranslationsFromSelectedFile()
         {
             Translations.Clear();
 
@@ -62,8 +73,13 @@ namespace TranslateAppWPF.MVVM.ViewModel
                         string jsonContent = File.ReadAllText(filePath);
                         if (!string.IsNullOrEmpty(jsonContent))
                         {
-                            Translations = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonContent)
-                                           ?? new Dictionary<string, string>();
+                            var translations = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonContent) ?? [];
+                            
+                            foreach (var translation in translations)
+                            {
+                                Translations.Add(translation);
+                            }
+                            IsSetListVisible = true; //fixxxxxxxxxxxxxxxxxxx
                         }
                         else
                         {

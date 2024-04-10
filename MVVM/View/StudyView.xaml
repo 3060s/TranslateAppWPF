@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:TranslateAppWPF.MVVM.View"
              xmlns:local2="clr-namespace:TranslateAppWPF.MVVM.Theme"
              xmlns:vm="clr-namespace:TranslateAppWPF.MVVM.ViewModel"
+             xmlns:converters="clr-namespace:TranslateAppWPF.MVVM.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -13,19 +14,27 @@
         <vm:StudyViewModel/>
     </UserControl.DataContext>
 
+    <UserControl.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
+
     <Grid>
         <Grid>
             <StackPanel Margin="300,100,300,10">
-                <ComboBox Width="200"
+                <ComboBox x:Name="SetComboBox"
+                          Width="200"
                           SelectedItem="{Binding SelectedFile}"
                           ItemsSource="{Binding Files}"/>
 
-                <Button Content="Wybierz"
+                <Button x:Name="SelectButton"
+                        Content="Wybierz"
                         Margin="0, 100, 0, 0"
                         Command="{Binding LoadTranslationsCommand}"
                         Style="{StaticResource NewButton}"/>
 
-                <ListBox ItemsSource="{Binding Translations}"
+                <ListBox x:Name="SetList"
+                         ItemsSource="{Binding Translations}"
+                         Visibility="{Binding IsSetListVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
                          DisplayMemberPath="Key"
                          Margin="0, 20, 0, 0"
                          Width="200" Height="200"/>
