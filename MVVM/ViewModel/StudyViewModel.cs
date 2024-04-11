@@ -11,9 +11,8 @@ using Newtonsoft.Json;
 
 namespace TranslateAppWPF.MVVM.ViewModel
 {
-    class StudyViewModel
+    class StudyViewModel : ObservableObject
     {
-        private ObservableObject _observableObject = new ObservableObject();
 
         private bool _isSetListVisible;
 
@@ -23,7 +22,7 @@ namespace TranslateAppWPF.MVVM.ViewModel
             set
             {
                 _isSetListVisible = value;
-                _observableObject.OnPropertyChanged(nameof(IsSetListVisible));
+                OnPropertyChanged();
             }
         }
 
@@ -74,12 +73,12 @@ namespace TranslateAppWPF.MVVM.ViewModel
                         if (!string.IsNullOrEmpty(jsonContent))
                         {
                             var translations = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonContent) ?? [];
-                            
+                            IsSetListVisible = true;
                             foreach (var translation in translations)
                             {
                                 Translations.Add(translation);
                             }
-                            IsSetListVisible = true; //fixxxxxxxxxxxxxxxxxxx
+                            IsSetListVisible = true;
                         }
                         else
                         {
