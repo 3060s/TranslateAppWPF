@@ -19,16 +19,22 @@
     </UserControl.Resources>
 
     <Grid>
+        <Label x:Name="Label1"
+               Content="Tworzenie zestawu"
+               Style="{StaticResource LabelTheme}"/> 
+
         <Grid>
             <StackPanel Margin="300,100,300,10">
                 <ComboBox x:Name="SetComboBox"
                           Width="200"
+                          Visibility="{Binding IsComboBoxVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
                           SelectedItem="{Binding SelectedFile}"
                           ItemsSource="{Binding Files}"/>
 
                 <Button x:Name="SelectButton"
                         Content="Wybierz"
                         Margin="0, 100, 0, 0"
+                        Visibility="{Binding IsButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
                         Command="{Binding LoadTranslationsCommand}"
                         Style="{StaticResource NewButton}"/>
 

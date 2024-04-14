@@ -26,6 +26,30 @@ namespace TranslateAppWPF.MVVM.ViewModel
             }
         }
 
+        private bool _isButtonVisible;
+
+        public bool IsButtonVisible
+        {
+            get { return _isButtonVisible; }
+            set
+            {
+                _isButtonVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isComboBoxVisible;
+
+        public bool IsComboBoxVisible
+        {
+            get { return _isComboBoxVisible; }
+            set
+            {
+                _isComboBoxVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
         private ObservableCollection<string> _files = new ObservableCollection<string>();
 
         public ObservableCollection<string> Files
@@ -56,6 +80,9 @@ namespace TranslateAppWPF.MVVM.ViewModel
         {
             LoadTranslationsCommand = new RelayCommand(_ => LoadTranslationsFromSelectedFile());
             RefreshFiles();
+            IsSetListVisible = true;
+            IsButtonVisible = true;
+            IsComboBoxVisible = true;
         }
 
         public void LoadTranslationsFromSelectedFile()
@@ -78,7 +105,9 @@ namespace TranslateAppWPF.MVVM.ViewModel
                             {
                                 Translations.Add(translation);
                             }
-                            IsSetListVisible = true;
+                            IsSetListVisible = false;
+                            IsButtonVisible = false;
+                            IsComboBoxVisible = false;
                         }
                         else
                         {
