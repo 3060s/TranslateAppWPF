@@ -16,14 +16,43 @@
 
     <UserControl.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
+        <Style TargetType="TextBox" x:Key="TextBoxStyle">
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontFamily" Value="Rubik"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="200"/>
+        </Style>
     </UserControl.Resources>
+
 
     <Grid>
         <Label x:Name="Label1"
-               Content="Tworzenie zestawu"
-               Style="{StaticResource LabelTheme}"/> 
+               Content="Tworzenie zestawu"/>
+        <!--Style="{StaticResource LabelTheme}"/> -->
+
+        <Label x:Name="LabelWord"
+               Margin="0, 50, 0, 0"
+               Content="{Binding RandomLabelText}"
+               Visibility="{Binding IsLabelVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+               HorizontalAlignment="Center"/>
 
         <Grid>
+
+            <TextBox x:Name="NameTextBox"
+                     Margin="0,200,0,0"
+                     Style="{StaticResource TextBoxStyle}"
+                     Visibility="{Binding IsInputBoxVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                     Text="{Binding UserTranslation, UpdateSourceTrigger=PropertyChanged}"
+                     HorizontalAlignment="Center">
+                
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Enter" Command="{Binding CheckTranslationCommand}" CommandParameter="{Binding ElementName=NameTextBox}"/>
+                </TextBox.InputBindings>
+            </TextBox>
+
             <StackPanel Margin="300,100,300,10">
                 <ComboBox x:Name="SetComboBox"
                           Width="200"
@@ -38,12 +67,12 @@
                         Command="{Binding LoadTranslationsCommand}"
                         Style="{StaticResource NewButton}"/>
 
-                <ListBox x:Name="SetList"
+                <!--<ListBox x:Name="SetList"
                          ItemsSource="{Binding Translations}"
                          Visibility="{Binding IsSetListVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
                          DisplayMemberPath="Key"
                          Margin="0, 20, 0, 0"
-                         Width="200" Height="200"/>
+                         Width="200" Height="200"/> -->
             </StackPanel>
         </Grid>
     </Grid>
