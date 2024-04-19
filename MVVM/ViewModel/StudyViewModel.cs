@@ -13,6 +13,44 @@ namespace TranslateAppWPF.MVVM.ViewModel
 {
     class StudyViewModel : ObservableObject
     {
+        private bool _isLabelWordVisible;
+
+        public bool IsLabelWordVisible
+        {
+            get { return _isLabelWordVisible; }
+            set
+            {
+                _isLabelWordVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private bool _isWordCorrectnessVisible;
+
+        public bool IsWordCorrectnessVisible
+        {
+            get { return _isWordCorrectnessVisible; }
+            set
+            {
+                _isWordCorrectnessVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private bool _isAnswerCounterVisible;
+
+        public bool IsAnswerCounterVisible
+        {
+            get { return _isAnswerCounterVisible; }
+            set
+            {
+                _isAnswerCounterVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         private bool _isSetListVisible;
 
@@ -26,6 +64,7 @@ namespace TranslateAppWPF.MVVM.ViewModel
             }
         }
 
+
         private bool _isButtonVisible;
 
         public bool IsButtonVisible
@@ -37,6 +76,33 @@ namespace TranslateAppWPF.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
+
+
+        private bool _isSummaryButtonVisible;
+
+        public bool IsSummaryButtonVisible
+        {
+            get { return _isSummaryButtonVisible; }
+            set
+            {
+                _isSummaryButtonVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private bool _isSummaryVisible;
+
+        public bool IsSummaryVisible
+        {
+            get { return _isSummaryVisible; }
+            set
+            {
+                _isSummaryVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         private bool _isComboBoxVisible;
 
@@ -50,6 +116,7 @@ namespace TranslateAppWPF.MVVM.ViewModel
             }
         }
 
+
         private bool _isInputBoxVisible;
 
         public bool IsInputBoxVisible
@@ -61,6 +128,7 @@ namespace TranslateAppWPF.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
+
 
         private ObservableCollection<string> _files = new ObservableCollection<string>();
 
@@ -116,23 +184,63 @@ namespace TranslateAppWPF.MVVM.ViewModel
             }
         }
 
+
+        private string _wordCorrectness = "";
+
+        public string WordCorrectness
+        {
+            get { return _wordCorrectness; }
+            set
+            {
+                _wordCorrectness = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private int _correctAnswersCount = 0;
+        private int _wrongAnswersCount = 0;
+        private int _totalAnswersCount = 0;
+
+        private string _answerCounter;
+
+        public string AnswerCounter
+        {
+            get { return _answerCounter; }
+            set
+            {
+                _answerCounter = value;
+                OnPropertyChanged();
+            }
+        }
+
         public RelayCommand LoadTranslationsCommand { get; private set; }
         public RelayCommand RandomizeLabelTextCommand { get; private set; }
         public RelayCommand CheckTranslationCommand { get; private set; }
+        public RelayCommand SummaryCommand { get; private set; }
 
         public StudyViewModel()
         {
             LoadTranslationsCommand = new RelayCommand(_ => LoadTranslationsFromSelectedFile());
             RandomizeLabelTextCommand = new RelayCommand(_ => RandomizeLabelText());
             CheckTranslationCommand = new RelayCommand(_ => CheckTranslation());
+            SummaryCommand = new RelayCommand(_ => Summary());
 
-
+            IsLabelWordVisible = false;
+            IsWordCorrectnessVisible = false;
+            IsAnswerCounterVisible = false;
             IsSetListVisible = true;
             IsButtonVisible = true;
             IsComboBoxVisible = true;
-            IsInputBoxVisible = true; //
+            IsInputBoxVisible = false;
+            IsSummaryButtonVisible = false;
 
             RefreshFiles();
+        }
+
+        private void UpdateAnswerCounter()
+        {
+            AnswerCounter = $"Ilość odpowiedzi: {_totalAnswersCount}";
         }
 
         public void LoadTranslationsFromSelectedFile()
@@ -155,10 +263,14 @@ namespace TranslateAppWPF.MVVM.ViewModel
                             {
                                 Translations.Add(translation);
                             }
+
+                            IsLabelWordVisible = true;
+                            IsWordCorrectnessVisible = true;
                             IsSetListVisible = false;
                             IsButtonVisible = false;
                             IsComboBoxVisible = false;
                             IsInputBoxVisible = true;
+                            IsSummaryButtonVisible = true;
 
                             RandomizeLabelText();
                         }
@@ -198,16 +310,23 @@ namespace TranslateAppWPF.MVVM.ViewModel
                 if (randomTranslation.Key != null)
                 {
                     string userInput = UserTranslation.Trim();
+                    _totalAnswersCount++;
 
                     if (string.Equals(userInput, randomTranslation.Value, StringComparison.OrdinalIgnoreCase))
                     {
-                        MessageBox.Show("Poprawne tłumaczenie!");
                         RandomizeLabelText();
+                        UserTranslation = "";
+                        WordCorrectness = "Dobrze!";
+                        _correctAnswersCount++;
+                        UpdateAnswerCounter();
                     }
                     else
                     {
-                        MessageBox.Show("Złe tłumaczenie!");
                         RandomizeLabelText();
+                        UserTranslation = "";
+                        WordCorrectness = "Źle!";
+                        _wrongAnswersCount++;
+                        UpdateAnswerCounter();
                     }
                 }
                 else
@@ -234,6 +353,16 @@ namespace TranslateAppWPF.MVVM.ViewModel
                     Files.Add(Path.GetFileName(jsonFile));
                 }
             }
+        }
+
+        private void Summary()
+        {
+            IsLabelWordVisible = false;
+            IsWordCorrectnessVisible = false;
+            IsAnswerCounterVisible = true;
+            IsInputBoxVisible = false;
+            IsSummaryButtonVisible = false;
+            IsSummaryVisible = true;
         }
     }
 }

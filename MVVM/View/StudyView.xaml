@@ -13,6 +13,7 @@
     <UserControl.DataContext>
         <vm:StudyViewModel/>
     </UserControl.DataContext>
+    
 
     <UserControl.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -36,8 +37,45 @@
         <Label x:Name="LabelWord"
                Margin="0, 50, 0, 0"
                Content="{Binding RandomLabelText}"
-               Visibility="{Binding IsLabelVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+               Visibility="{Binding IsLabelWordVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
                HorizontalAlignment="Center"/>
+
+        <Label x:Name="WordCorrectness"
+               Margin="0, 170, 0, 0"
+               Content="{Binding WordCorrectness}"
+               Visibility="{Binding IsWordCorrectnessVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+               HorizontalAlignment="Center"/>
+
+        <Label x:Name="AnswerCounter"
+               Margin="0, 0, 0, 0"
+               Content="{Binding AnswerCounter}"
+               Visibility="{Binding IsAnswerCounterVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Center"/>
+
+        <Button x:Name="SummaryButton"
+                Content="Zakończ"
+                Margin="0, 350, 0, 0"
+                Visibility="{Binding IsSummaryButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                Command="{Binding SummaryCommand}"
+                Style="{StaticResource NewButton}"/>
+
+        <Border BorderBrush="Black"
+                BorderThickness="3"
+                CornerRadius="20"
+                Background="Gray"
+                Margin="200,50,200,50"
+                Visibility="{Binding IsSummaryVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <StackPanel>
+                <Label x:Name="SummaryAnswerCount"
+                       Margin="0, 0, 0, 0"
+                       Content="{Binding AnswerCounter}"
+                       Visibility="{Binding IsSummaryVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"/>
+            </StackPanel>
+        </Border>
+
 
         <Grid>
 
