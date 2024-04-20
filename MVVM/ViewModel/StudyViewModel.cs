@@ -15,7 +15,6 @@ namespace TranslateAppWPF.MVVM.ViewModel
 {
     class StudyViewModel : ObservableObject
     {
-
         private DispatcherTimer _timer;
 
         private int _timerValue;
@@ -414,6 +413,7 @@ namespace TranslateAppWPF.MVVM.ViewModel
                 RandomLabelText = "Nie załadowano tłumaczeń.";
             }
         }
+
 
         private void CheckTranslation()
         {

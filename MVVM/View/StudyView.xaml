@@ -105,7 +105,7 @@
         <Grid>
 
             <TextBox x:Name="NameTextBox"
-                     Margin="0,200,0,0"
+                     Margin="0,0,0,0"
                      Style="{StaticResource TextBoxStyle}"
                      Visibility="{Binding IsInputBoxVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
                      Text="{Binding UserTranslation, UpdateSourceTrigger=PropertyChanged}"
@@ -116,7 +116,7 @@
                 </TextBox.InputBindings>
             </TextBox>
 
-            <StackPanel Margin="300,150,300,10">
+            <StackPanel Margin="300,250,300,10">
                 <ComboBox x:Name="SetComboBox"
                           Width="200"
                           Visibility="{Binding IsComboBoxVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
@@ -125,7 +125,7 @@
 
                 <Button x:Name="SelectButton"
                         Content="Wybierz"
-                        Margin="0, 160, 0, 0"
+                        Margin="0, 150, 0, 0"
                         Visibility="{Binding IsButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
                         Command="{Binding LoadTranslationsCommand}"
                         Style="{StaticResource NewButton}"/>

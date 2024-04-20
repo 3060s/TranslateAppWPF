@@ -11,15 +11,21 @@
     <UserControl.DataContext>
         <vm:DeleteViewModel/>
     </UserControl.DataContext>
-
+    
+    
     <Grid>
-        <StackPanel Margin="300,100,300,10">
+
+        <Label x:Name="Label1"
+               Content="Usuwanie zestawu"
+               Style="{StaticResource LabelTheme}"/>
+
+        <StackPanel Margin="300,250,300,10">
             <ComboBox Width="200"
                       SelectedItem="{Binding SelectedFile}"
                       ItemsSource="{Binding Files}"/>
             
             <Button Content="Usuń zestaw"
-                    Margin="0, 100, 0, 0"
+                    Margin="0, 150, 0, 0"
                     Command="{Binding DeleteCommand}"
                     Style="{StaticResource NewButton}"/>
         </StackPanel>
