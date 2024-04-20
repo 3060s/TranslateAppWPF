@@ -6,6 +6,8 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Media;
+using System.Windows.Threading;
 using Newtonsoft.Json;
 
 
@@ -13,6 +15,60 @@ namespace TranslateAppWPF.MVVM.ViewModel
 {
     class StudyViewModel : ObservableObject
     {
+
+        private DispatcherTimer _timer;
+
+        private int _timerValue;
+
+        public int TimerValue
+        {
+            get { return _timerValue; }
+            set
+            {
+                _timerValue = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private string _timerValueString;
+
+        public string TimerValueString
+        {
+            get { return _timerValueString; }
+            set
+            {
+                _timerValueString = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private double _avgAnswerTime;
+
+        public double AvgAnswerTime
+        {
+            get { return _avgAnswerTime; }
+            set
+            {
+                _avgAnswerTime = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private string _avgAnswerTimeFormatted;
+
+        public string AvgAnswerTimeFormatted
+        {
+            get { return _avgAnswerTimeFormatted; }
+            set
+            {
+                _avgAnswerTimeFormatted = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         private bool _isLabelWordVisible;
 
         public bool IsLabelWordVisible
@@ -21,6 +77,19 @@ namespace TranslateAppWPF.MVVM.ViewModel
             set
             {
                 _isLabelWordVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private bool _isLabel1Visible;
+
+        public bool IsLabel1Visible
+        {
+            get { return _isLabel1Visible; }
+            set
+            {
+                _isLabel1Visible = value;
                 OnPropertyChanged();
             }
         }
@@ -202,14 +271,53 @@ namespace TranslateAppWPF.MVVM.ViewModel
         private int _wrongAnswersCount = 0;
         private int _totalAnswersCount = 0;
 
-        private string _answerCounter;
+        private string _totalAnswers;
 
-        public string AnswerCounter
+        public string TotalAnswers
         {
-            get { return _answerCounter; }
+            get { return _totalAnswers; }
             set
             {
-                _answerCounter = value;
+                _totalAnswers = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private string _wrongAnswers;
+
+        public string WrongAnswers
+        {
+            get { return _wrongAnswers; }
+            set
+            {
+                _wrongAnswers = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private string _correctAnswers;
+
+        public string CorrectAnswers
+        {
+            get { return _correctAnswers; }
+            set
+            {
+                _correctAnswers = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private SolidColorBrush _wordCorrectnessColor = new SolidColorBrush(Colors.Black);
+
+        public SolidColorBrush WordCorrectnessColor
+        {
+            get { return _wordCorrectnessColor; }
+            set
+            {
+                _wordCorrectnessColor = value;
                 OnPropertyChanged();
             }
         }
@@ -227,6 +335,7 @@ namespace TranslateAppWPF.MVVM.ViewModel
             SummaryCommand = new RelayCommand(_ => Summary());
 
             IsLabelWordVisible = false;
+            IsLabel1Visible = true;
             IsWordCorrectnessVisible = false;
             IsAnswerCounterVisible = false;
             IsSetListVisible = true;
@@ -235,13 +344,14 @@ namespace TranslateAppWPF.MVVM.ViewModel
             IsInputBoxVisible = false;
             IsSummaryButtonVisible = false;
 
+
+            _timer = new DispatcherTimer();
+            _timer.Interval = TimeSpan.FromSeconds(1);
+            _timer.Tick += TimerTick;
+
             RefreshFiles();
         }
 
-        private void UpdateAnswerCounter()
-        {
-            AnswerCounter = $"Ilość odpowiedzi: {_totalAnswersCount}";
-        }
 
         public void LoadTranslationsFromSelectedFile()
         {
@@ -265,12 +375,15 @@ namespace TranslateAppWPF.MVVM.ViewModel
                             }
 
                             IsLabelWordVisible = true;
+                            IsLabel1Visible = false;
                             IsWordCorrectnessVisible = true;
                             IsSetListVisible = false;
                             IsButtonVisible = false;
                             IsComboBoxVisible = false;
                             IsInputBoxVisible = true;
                             IsSummaryButtonVisible = true;
+
+                            _timer.Start();
 
                             RandomizeLabelText();
                         }
@@ -307,6 +420,7 @@ namespace TranslateAppWPF.MVVM.ViewModel
             if (Translations.Count > 0)
             {
                 var randomTranslation = Translations.FirstOrDefault(t => t.Key == RandomLabelText.Replace("Przetłumacz: ", ""));
+
                 if (randomTranslation.Key != null)
                 {
                     string userInput = UserTranslation.Trim();
@@ -316,17 +430,17 @@ namespace TranslateAppWPF.MVVM.ViewModel
                     {
                         RandomizeLabelText();
                         UserTranslation = "";
+                        WordCorrectnessColor = new SolidColorBrush(Colors.Green);
                         WordCorrectness = "Dobrze!";
                         _correctAnswersCount++;
-                        UpdateAnswerCounter();
                     }
                     else
                     {
                         RandomizeLabelText();
                         UserTranslation = "";
+                        WordCorrectnessColor = new SolidColorBrush(Colors.Red);
                         WordCorrectness = "Źle!";
                         _wrongAnswersCount++;
-                        UpdateAnswerCounter();
                     }
                 }
                 else
@@ -355,14 +469,28 @@ namespace TranslateAppWPF.MVVM.ViewModel
             }
         }
 
+        private void TimerTick(object sender, EventArgs e)
+        {
+            TimerValue++;
+        }
+
         private void Summary()
         {
+            _timer.Stop();
             IsLabelWordVisible = false;
             IsWordCorrectnessVisible = false;
             IsAnswerCounterVisible = true;
             IsInputBoxVisible = false;
             IsSummaryButtonVisible = false;
             IsSummaryVisible = true;
+
+            _avgAnswerTime = (_totalAnswersCount > 0) ? (double)TimerValue / _totalAnswersCount : 0;
+
+            TotalAnswers = $"Ilość odpowiedzi: {_totalAnswersCount}";
+            CorrectAnswers = $"Dobre odpowiedzi: {_correctAnswersCount}";
+            WrongAnswers = $"Złe odpowiedzi: {_wrongAnswersCount} ";
+            TimerValueString = $"Łączny czas nauki: {TimerValue}s";
+            AvgAnswerTimeFormatted = $"Średni czas na odpowiedź: {_avgAnswerTime.ToString("0.00")}s";
         }
     }
 }

@@ -31,27 +31,26 @@
 
     <Grid>
         <Label x:Name="Label1"
-               Content="Tworzenie zestawu"/>
-        <!--Style="{StaticResource LabelTheme}"/> -->
+               Content="Wybierz zestaw"
+               Visibility="{Binding IsLabel1Visible, Converter={StaticResource BooleanToVisibilityConverter}}"
+               Style="{StaticResource LabelTheme}"/>
 
         <Label x:Name="LabelWord"
                Margin="0, 50, 0, 0"
                Content="{Binding RandomLabelText}"
                Visibility="{Binding IsLabelWordVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+               Style="{StaticResource KeyStyle}"
                HorizontalAlignment="Center"/>
 
         <Label x:Name="WordCorrectness"
-               Margin="0, 170, 0, 0"
+               Margin="0, 250, 0, 0"
+               FontSize="30"
+               FontFamily="Rubik"
+               FontWeight="SemiBold"
                Content="{Binding WordCorrectness}"
+               Foreground="{Binding WordCorrectnessColor}"
                Visibility="{Binding IsWordCorrectnessVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
                HorizontalAlignment="Center"/>
-
-        <Label x:Name="AnswerCounter"
-               Margin="0, 0, 0, 0"
-               Content="{Binding AnswerCounter}"
-               Visibility="{Binding IsAnswerCounterVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
-               HorizontalAlignment="Left"
-               VerticalAlignment="Center"/>
 
         <Button x:Name="SummaryButton"
                 Content="Zakończ"
@@ -68,11 +67,37 @@
                 Visibility="{Binding IsSummaryVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel>
                 <Label x:Name="SummaryAnswerCount"
-                       Margin="0, 0, 0, 0"
-                       Content="{Binding AnswerCounter}"
+                       Style="{StaticResource SummaryTheme}"
+                       Content="{Binding TotalAnswers}"
                        Visibility="{Binding IsSummaryVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
-                       HorizontalAlignment="Left"
+                       HorizontalAlignment="Center"
                        VerticalAlignment="Center"/>
+
+                <Label x:Name="SummaryCorrectAnswerCount"
+                       Style="{StaticResource SummaryTheme}"
+                       Content="{Binding CorrectAnswers}"
+                       Visibility="{Binding IsSummaryVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+
+                <Label x:Name="SummaryWrongAnswerCount"
+                       Style="{StaticResource SummaryTheme}"
+                       Content="{Binding WrongAnswers}"
+                       Visibility="{Binding IsSummaryVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+
+                <Label x:Name="TotalTime"
+                       Style="{StaticResource SummaryTheme}"
+                       Content="{Binding TimerValueString}"
+                       Visibility="{Binding IsSummaryVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                       HorizontalAlignment="Center"/>
+
+                <Label x:Name="AvgAnswerTime"
+                       Style="{StaticResource SummaryTheme}"
+                       Content="{Binding AvgAnswerTimeFormatted}"
+                       Visibility="{Binding IsSummaryVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                       HorizontalAlignment="Center"/>
             </StackPanel>
         </Border>
 
@@ -91,7 +116,7 @@
                 </TextBox.InputBindings>
             </TextBox>
 
-            <StackPanel Margin="300,100,300,10">
+            <StackPanel Margin="300,150,300,10">
                 <ComboBox x:Name="SetComboBox"
                           Width="200"
                           Visibility="{Binding IsComboBoxVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
@@ -100,17 +125,10 @@
 
                 <Button x:Name="SelectButton"
                         Content="Wybierz"
-                        Margin="0, 100, 0, 0"
+                        Margin="0, 160, 0, 0"
                         Visibility="{Binding IsButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
                         Command="{Binding LoadTranslationsCommand}"
                         Style="{StaticResource NewButton}"/>
-
-                <!--<ListBox x:Name="SetList"
-                         ItemsSource="{Binding Translations}"
-                         Visibility="{Binding IsSetListVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
-                         DisplayMemberPath="Key"
-                         Margin="0, 20, 0, 0"
-                         Width="200" Height="200"/> -->
             </StackPanel>
         </Grid>
     </Grid>

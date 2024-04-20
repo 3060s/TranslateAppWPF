@@ -5,5 +5,8 @@
         <ResourceDictionary Source="Theme/DropdownMenuTheme.xaml"/>
         <ResourceDictionary Source="Theme/MenuButtonTheme.xaml"/>
         <ResourceDictionary Source="Theme/TextBox.xaml"/>
+        <ResourceDictionary Source="Theme/LabelTheme.xaml"/>
+        <ResourceDictionary Source="Theme/KeyStyle.xaml"/>
+        <ResourceDictionary Source="Theme/SummaryTheme.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
