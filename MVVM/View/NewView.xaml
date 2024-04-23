@@ -64,6 +64,15 @@
                     Margin="0, 50, 0, 50"
                     Style="{StaticResource NewButton}"/>
 
+            <Button Name="OCR"
+                    Click="OpenFile"
+                    Content="OCR"
+                    Margin="0, 200, 0, 50"
+                    Style="{StaticResource NewButton}"/>
+
+            
+            
+
             <Button Name="New"
                     Click="NewSetButton_Click"
                     Content="Stwórz zestaw"

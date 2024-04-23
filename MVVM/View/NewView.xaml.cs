@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Tesseract;
 using TranslateAppWPF.MVVM.Theme;
 
 namespace TranslateAppWPF.MVVM.View
@@ -12,6 +13,8 @@ namespace TranslateAppWPF.MVVM.View
     {
         private readonly string directoryPath = "dictionaries";
         private string filePath;
+        private string filename;
+
         private Dictionary<string, string> dictionary;
 
         public NewView()
@@ -26,6 +29,7 @@ namespace TranslateAppWPF.MVVM.View
 
 
             Add.Visibility = Visibility.Collapsed;
+            OCR.Visibility = Visibility.Collapsed;
             KeyTextBox.Visibility = Visibility.Collapsed;
             ValueTextBox.Visibility = Visibility.Collapsed;
         }
@@ -96,6 +100,7 @@ namespace TranslateAppWPF.MVVM.View
                 SaveDictionaryToFile();
 
                 Add.Visibility = Visibility.Visible;
+                OCR.Visibility = Visibility.Visible;
                 KeyTextBox.Visibility = Visibility.Visible;
                 ValueTextBox.Visibility = Visibility.Visible;
                 New.Visibility = Visibility.Collapsed;
@@ -105,6 +110,61 @@ namespace TranslateAppWPF.MVVM.View
             else
             {
                 MessageBox.Show("Proszę wprowadzić nazwę zestawu!");
+            }
+        }
+
+        private void OpenFile(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog opendlg = new Microsoft.Win32.OpenFileDialog();
+            opendlg.Filter = "(*.png, *.jpg, *.jpeg)|*.png;*.jpg;*.jpeg";
+            Nullable<bool> result = opendlg.ShowDialog();
+
+            if (result == true)
+            {
+                this.filename = opendlg.FileName;
+                OCRButton_Click(sender, e);
+            }
+        }
+
+        private void OCRButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(filename))
+            {
+                MessageBox.Show("No file selected!");
+                return;
+            }
+
+            try
+            {
+                using (var engine = new TesseractEngine(@"./tessdata", "eng", EngineMode.Default))
+                {
+                    using (var img = Pix.LoadFromFile(filename))
+                    {
+                        using (var page = engine.Process(img))
+                        {
+                            var text = page.GetText();
+                            var lines = text.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+                            foreach (var line in lines)
+                            {
+                                var parts = line.Split('-');
+                                if (parts.Length == 2)
+                                {
+                                    var key = parts[0].Trim();
+                                    var value = parts[1].Trim();
+                                    dictionary[key] = value;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                SaveDictionaryToFile();
+                MessageBox.Show("OCR processing complete and saved!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error during OCR processing: " + ex.Message); // error  
             }
         }
 
