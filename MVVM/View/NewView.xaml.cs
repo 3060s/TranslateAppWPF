@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -136,7 +137,10 @@ namespace TranslateAppWPF.MVVM.View
 
             try
             {
-                using (var engine = new TesseractEngine(@"./tessdata", "eng", EngineMode.Default))
+                var executablePath = System.AppDomain.CurrentDomain.BaseDirectory;
+                var tessdataPath = Path.Combine(executablePath, "tessdata");
+
+                using (var engine = new TesseractEngine(tessdataPath, "eng+pol", EngineMode.Default))
                 {
                     using (var img = Pix.LoadFromFile(filename))
                     {
@@ -144,16 +148,35 @@ namespace TranslateAppWPF.MVVM.View
                         {
                             var text = page.GetText();
                             var lines = text.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                            string currentKey = null;
+                            string currentValue = "";
 
                             foreach (var line in lines)
                             {
-                                var parts = line.Split('-');
-                                if (parts.Length == 2)
+                                // Assume each new key starts with a word followed by '—'
+                                if (Regex.IsMatch(line, @"^\w+ —"))
                                 {
-                                    var key = parts[0].Trim();
-                                    var value = parts[1].Trim();
-                                    dictionary[key] = value;
+                                    if (!string.IsNullOrEmpty(currentKey))
+                                    {
+                                        // Save the previous key-value pair
+                                        dictionary[currentKey] = currentValue.Trim();
+                                    }
+                                    // Reset for new key-value pair
+                                    int index = line.IndexOf("—");
+                                    currentKey = line.Substring(0, index).Trim();
+                                    currentValue = line.Substring(index + 1).Trim();
                                 }
+                                else if (!string.IsNullOrEmpty(currentValue))
+                                {
+                                    // Continue appending to current value
+                                    currentValue += " " + line.Trim();
+                                }
+                            }
+
+                            // Ensure the last entry is added
+                            if (!string.IsNullOrEmpty(currentKey))
+                            {
+                                dictionary[currentKey] = currentValue.Trim();
                             }
                         }
                     }
@@ -162,9 +185,17 @@ namespace TranslateAppWPF.MVVM.View
                 SaveDictionaryToFile();
                 MessageBox.Show("OCR processing complete and saved!");
             }
+            catch (TesseractException tex)
+            {
+                MessageBox.Show("OCR engine error: " + tex.Message);
+            }
+            catch (IOException ioex)
+            {
+                MessageBox.Show("File I/O error: " + ioex.Message);
+            }
             catch (Exception ex)
             {
-                MessageBox.Show("Error during OCR processing: " + ex.Message); // error  
+                MessageBox.Show($"Unhandled error during OCR processing: {ex.Message}\n\nStack Trace:\n{ex.StackTrace}");
             }
         }
 
