@@ -41,49 +41,48 @@
         <Grid>
             <TextBox x:Name="KeyTextBox"
                      Margin="20,0,1000,0"
-                     LostFocus="TextBox_LostFocus"
+                     Visibility="{Binding EntryCreationVisibility}"
+                     Text="{Binding Key, UpdateSourceTrigger=PropertyChanged}"
                      Style="{StaticResource textbox}"/>
 
             <TextBox x:Name="ValueTextBox"
                      Margin="1000,0,20,0"
+                     Visibility="{Binding EntryCreationVisibility}"
                      Style="{StaticResource textbox}"
-                     LostFocus="TextBox_LostFocus"/>
+                     Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"/>
 
             <TextBox x:Name="NameTextBox"
                      FontSize="14"
                      Margin="0,0,0,400"
-                     LostFocus="TextBox_LostFocus"
+                     Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                     Visibility="{Binding SetCreationVisibility}"
                      Style="{StaticResource TextBox}"
-                     HorizontalAlignment="Center"
-                     local2:WatermarkService.Watermark="Podaj nazwę zestawu"/>
+                     HorizontalAlignment="Center"/>
+
+            <!-- local2:WatermarkService.Watermark="Podaj nazwę zestawu" -->
 
 
             <Button Name="Add"
-                    Click="AddEntryButton_Click"
+                    Command="{Binding AddEntryCommand}"
+                    Visibility="{Binding EntryCreationVisibility}"
                     Content="Dodaj wpis"
                     Margin="0, 50, 0, 50"
                     Style="{StaticResource NewButton}"/>
 
             <Button Name="OCR"
-                    Click="OpenFile"
+                    Command="{Binding OpenFileCommand}"
+                    Visibility="{Binding EntryCreationVisibility}"
                     Content="OCR"
                     Margin="0, 200, 0, 50"
                     Style="{StaticResource NewButton}"/>
-
-            
-            
+           
 
             <Button Name="New"
-                    Click="NewSetButton_Click"
+                    Command="{Binding NewSetCommand}"
+                    Visibility="{Binding SetCreationVisibility}"
                     Content="Stwórz zestaw"
                     Margin="0, 0, 0, 50"
                     Style="{StaticResource NewButton}"/>    
-            
-            
-            <!-- ZROBIC TUTAJ OCR -->
-            <!-- ZROBIC TUTAJ OCR -->
-            <!-- ZROBIC TUTAJ OCR -->
-            <!-- ZROBIC TUTAJ OCR -->
         </Grid>
     </Grid>
 </UserControl>   
